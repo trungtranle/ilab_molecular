@@ -1,5 +1,5 @@
 from django.contrib import admin
-#from result.models import *
+from result.models import *
 # Register your models here.
 
 '''class HBVAdmin(admin.ModelAdmin):
@@ -7,6 +7,5 @@ from django.contrib import admin
     list_filter = ['finished', 'result', 'date_receive']
     
 
-admin.site.register(HBVSampleInfo, HBVAdmin)
-admin.site.register(UserInfo)
-admin.site.register(HBVStandardCurve)'''
+admin.site.register(HBVSampleInfo, HBVAdmin)'''
+#admin.site.register(HBVStandardCurve)
