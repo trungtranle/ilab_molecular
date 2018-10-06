@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'ilab_molecular.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'test',
+        'NAME': 'ilab_molecular',
         'PORT':5432,
         'HOST':"104.199.112.101",
         'USER':'postgres',
