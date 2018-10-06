@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <div class="container">
+    
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Lab ID</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Ngày nhập</th>
+                <th scope="col">Kết quả</th>
+                <th scope="col">Nồng độ</th>
+                <th scope="col">Cập nhật</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sample in samples %}
+            {% if sample.finished %}
+            <tr>
+                <td scope="row">{{sample.lab_id}}</td>
+                <td>{{sample.name}}</td>
+                <td>{{sample.date_receive}}</td>
+                <td>{{sample.result}}</td>
+                <td>{{sample.concentration}}</td>
+                <td><a href="{% url 'b_detail' sample.pk %}" class="btn btn-info">Cập nhật</a></td>
+            </tr>
+            {% else %}
+            <tr class = table-warning>
+                <td scope="row">{{sample.lab_id}}</td>
+                <td>{{sample.name}}</td>
+                <td>{{sample.date_receive}}</td>
+                <td>{{sample.result}}</td>
+                <td>{{sample.concentration}}</td>
+                <td><a href="{% url 'b_detail' sample.pk %}" class="btn btn-info">Cập nhật</a></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

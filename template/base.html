@@ -1,0 +1,122 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>iLab - Molecular Diagnostic</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">-->
+    <link rel="shortcut icon" href="{% static 'img/logo.png'%}" type="image/x-icon">
+</head>
+
+<body>
+    {% if not user.is_authenticated %}
+    <div class="container">
+        <div class="alert alert-danger">
+            <p>You don't have the permission to use this app</p>
+            <p>Please login in <a href="{% url 'login'%}">here</a></p>
+        </div>
+    </div>
+    {% else %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <a href="{% url 'index' %}" class="navbar-brand">
+        
+            Molecular Diagnostic Lab
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'index'%}">Home </a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="HBVDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        HBV
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="HBVDropdown">
+                        <a class="dropdown-item" href="{% url 'b_new'%}">Nhập bệnh phẩm</a>
+                        <a class="dropdown-item" href="{% url 'b_sample_list'%}">Xem danh sách</a>
+                        <a class="dropdown-item" href="#">Tạo đường chuẩn</a>
+                        <a class="dropdown-item" href="{% url 'b_run_file'%}">Nhập file chạy</a>
+                        <a class="dropdown-item" href="#">Tìm kiếm</a>
+                    </div>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="HCVDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        HCV
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="HCVDropdown">
+                        <a class="dropdown-item" href="#">Nhập bệnh phẩm</a>
+                        <a class="dropdown-item" href="#">Xem danh sách</a>
+                        <a class="dropdown-item" href="#">Tạo đường chuẩn</a>
+                        <a class="dropdown-item" href="#">Nhập file chạy</a>
+                        <a class="dropdown-item" href="#">Tìm kiếm HCV</a>
+                    </div>
+                </li>
+                    
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="HPVKTDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        HPV Khoa Thương
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="HPVKTDropdown">
+                        <a class="dropdown-item" href="#">Nhập bệnh phẩm</a>
+                        <a class="dropdown-item" href="#">Xem danh sách</a>
+                        <a class="dropdown-item" href="#">Nhập file chạy</a>                        
+                        <a class="dropdown-item" href="#">Tìm kiếm HPV</a>
+                    </div>
+                </li>
+                 
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="HPVVADropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        HPV Genotype Việt Á
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="HPVVADropdown">
+                        <a class="dropdown-item" href="#">Nhập bệnh phẩm</a>
+                        <a class="dropdown-item" href="#">Xem danh sách</a> 
+                        <a class="dropdown-item" href="#">Nhập file chạy</a>                       
+                        <a class="dropdown-item" href="#">Tìm kiếm HPV</a>
+                    </div>
+                </li>
+                </ul>
+
+                <ul class="navbar-nav navbar-right">
+                        {% if user.is_authenticated %}
+                        <li class = "nav-item">
+                            <span class = "navbar-text">Hi, {{user.username}}</span>
+                            <a href="{% url 'logout'%}" class = "navbar-text"> Đăng xuất</a>
+                        </li>
+                    </ul>
+                        {% endif %}
+                    
+
+        </div>
+    </nav>
+    
+
+    {% block body_block %}
+    {% endblock %}
+    {% endif %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block body_block %}
+<div class="container p-2">
+    <form action="" method="post">
+    {% for field in form %}
+        <div class="row">
+            <div class="col-sm-3">
+                <label for="">{{field.label}}</label>
+            </div>
+            <div class="col-sm-9">{{field}}</div>
+        </div>
+        
+    {% endfor %}
+    {% csrf_token %}
+    <input type="submit" value="Cập nhật" class="btn btn-primary">
+    <a href="{% url 'b_sample_list'%}" class="btn btn-defaut">Quay về danh sách</a>
+    </form>
+    {% if saved%}
+    <script>
+        window.alert('Đã cập nhật')
+        window.location = window.location.pathname
+    </script>
+    {% endif %}
+</div>
+{% endblock%}
