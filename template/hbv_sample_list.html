@@ -1,44 +1,72 @@
 {% extends 'base.html' %}
-
+{% load mathfilters %}
+{% load humanize %}
 {% block body_block %}
-    <div class="container">
+    {% if mess %}   
+    <div> 
+    <script>
+        var al = "{{mess}}";        
+        window.alert(al)
+        window.location.href = "{% url 'b_sample_list' %}"
+    </script>
+    </div>
     
-
+    {% endif %}
+    <div class="container">
+        
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="container p-3">
+        <input class = "btn btn-primary" type="submit" name = "actionbutton" value="Tạo kết quả">
+        <input class = "btn btn-danger" type="submit" name = "actionbutton" value="Xóa">
+        <input type="submit" class="btn btn-warning" name = "actionbutton" value = "Finish Toggle">
+        </div>
     <table class="table">
         <thead>
             <tr>
+                <th scope="col"></th>
                 <th scope="col">Lab ID</th>
                 <th scope="col">Tên</th>
-                <th scope="col">Ngày nhập</th>
+                <th scope="col">Ngày nhận</th>
                 <th scope="col">Kết quả</th>
-                <th scope="col">Nồng độ</th>
-                <th scope="col">Cập nhật</th>
+                <th scope="col">Ct</th>
+                <th scope="col">Copies/mL</th>
+                <th scope="col">Đơn vị gửi</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
             {% for sample in samples %}
             {% if sample.finished %}
             <tr>
+                <td><input type="checkbox" name = "chkbx" value="{{sample.pk}}"></td>
                 <td scope="row">{{sample.lab_id}}</td>
                 <td>{{sample.name}}</td>
-                <td>{{sample.date_receive}}</td>
+                <td>{{sample.added}}</td>
                 <td>{{sample.result}}</td>
-                <td>{{sample.concentration}}</td>
+                <td>{{sample.ct}}</td>
+                <td>{{ sample.copies|mul:100|intcomma}}</td>
+                <td>{{sample.clinic}}</td>
                 <td><a href="{% url 'b_detail' sample.pk %}" class="btn btn-info">Cập nhật</a></td>
             </tr>
             {% else %}
             <tr class = table-warning>
+                <td><input type="checkbox" name = "chkbx" value="{{sample.pk}}"></td>
                 <td scope="row">{{sample.lab_id}}</td>
                 <td>{{sample.name}}</td>
-                <td>{{sample.date_receive}}</td>
+                <td>{{sample.added}}</td>
                 <td>{{sample.result}}</td>
-                <td>{{sample.concentration}}</td>
+                <td>{{sample.ct}}</td>
+                <td>{{ sample.copies|mul:sample.std_curve.factor|intcomma}}</td>
+                <td>{{sample.clinic}}</td>
                 <td><a href="{% url 'b_detail' sample.pk %}" class="btn btn-info">Cập nhật</a></td>
             </tr>
             {% endif %}
             {% endfor %}
         </tbody>
     </table>
-
+    
+    </form>
 </div>
+
 {% endblock %}

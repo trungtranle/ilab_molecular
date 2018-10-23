@@ -1,5 +1,32 @@
 {% extends 'base.html'%}
 
 {% block body_block %}
-
+<div class="container p-3">
+    <div class="row">
+        <div class="col-sm-3">
+            <h3>HBV</h3>
+            <a class="btn btn-primary m-2" href="{% url 'b_new'%}">Nhập bệnh phẩm</a>
+            <a class="btn btn-primary m-2" href="{% url 'b_sample_list'%}">Xem danh sách</a>            
+            <a class="btn btn-primary m-2" href="{% url 'b_run_file'%}">Nhập file chạy</a>
+        </div>
+        <div class="col-sm-3">
+            <h3>HCV</h3>
+            <a class="btn btn-primary m-2" href="{% url 'c_new'%}">Nhập bệnh phẩm</a>
+            <a class="btn btn-primary m-2" href="{% url 'c_sample_list'%}">Xem danh sách</a>            
+            <a class="btn btn-primary m-2" href="{% url 'c_run_file'%}">Nhập file chạy</a>
+        </div>
+        <div class="col-sm-3">
+            <h3>HPV</h3>
+            <a class="btn btn-primary m-2" href="{% url 'hpv_new'%}">Nhập bệnh phẩm</a>
+            <a class="btn btn-primary m-2" href="{% url 'hpv_sample_list'%}">Xem danh sách</a>            
+            <a class="btn btn-primary m-2" href="{% url 'hpv_run_file'%}">Nhập file chạy</a>
+        </div>
+        <div class="col-sm-3">
+            <h3>CTNG</h3>
+            <a class="btn btn-primary m-2" href="{% url 'ctng_new'%}">Nhập bệnh phẩm</a>
+            <a class="btn btn-primary m-2" href="{% url 'ctng_sample_list'%}">Xem danh sách</a>
+            <a class="btn btn-primary m-2" href="{% url 'ctng_run_file'%}">Nhập file chạy</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

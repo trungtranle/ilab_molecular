@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+
+{% block body_block %}
+
+
+{% if saved %}
+<script>    
+    window.alert("Đã lưu")
+    setTimeout(function() {
+        window.location.href = "{% url 'hpv_new'%}";
+}, 10);
+</script>
+
+{% else %}
+<div class="container p-3">
+    <h3>Nhập mẫu HPV mới</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="form-group row">
+        <div class="col-sm-3">
+        <label for="">{{field.label}}</label>
+        </div>
+        <div class="col-sm-9">
+        <span>
+        {{field}}
+        </span>
+        {% if field.errors %}
+            {% if field.label == 'Lab ID'%}
+            <script>
+                window.alert('Lab ID đã tồn tại')                
+            </script>
+            {% elif field.label == 'SID'%}
+            <script>
+                window.alert('SID đã tồn tại')                
+            </script>
+            {% endif %}
+            <!--<div class="alert alert-danger">{{field.errors}}</div>-->
+        {% endif %}
+        </div>
+        </div>
+        {% endfor %}  
+        <input type="submit" value="Lưu" class = "btn btn-primary">
+    {% endif %}
+    </form>
+
+    
+</div>
+    
+
+{% endblock %}

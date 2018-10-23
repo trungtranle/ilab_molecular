@@ -4,7 +4,7 @@
 
 
 {% if saved %}
-<script>
+<script>    
     window.alert("Đã lưu")
     setTimeout(function() {
         window.location.href = "{% url 'b_new'%}";
@@ -27,9 +27,15 @@
         {{field}}
         </span>
         {% if field.errors %}
+            {% if field.label == 'Lab ID'%}
             <script>
                 window.alert('Lab ID đã tồn tại')                
             </script>
+            {% elif field.label == 'SID'%}
+            <script>
+                window.alert('SID đã tồn tại')                
+            </script>
+            {% endif %}
             <!--<div class="alert alert-danger">{{field.errors}}</div>-->
         {% endif %}
         </div>
@@ -38,6 +44,8 @@
         <input type="submit" value="Lưu" class = "btn btn-primary">
     {% endif %}
     </form>
+
+    
 </div>
     
 

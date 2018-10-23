@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block body_block %}
+
+<div class="container p-2">
+    
+    <div class="row">
+        <div class="col-sm-6">
+            <form action="" method="post">
+                {% for field in form %}
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="">{{field.label}}</label>
+                    </div>
+                    <div class="col-sm-9">{{field}}</div>
+                </div>
+
+                {% endfor %}
+                {% csrf_token %}
+                <input type="submit" value="Cập nhật" class="btn btn-primary">
+                <a href="{% url 'c_sample_list'%}" class="btn btn-default">Quay về danh sách</a>
+
+            </form>
+        </div>
+        <div class="col-sm-6">           
+            <img src="{% static image_file %}" alt="CHƯA CÓ FILE HÌNH" width="600px">
+            <a href="{% url 'c_image' sample.pk %}" class="btn btn-primary">Reload hình</a>
+            <p><em>Nhớ nhấn Reload, sau đó Ctrl + F5 sau khi cập nhật Ct và copies đối với mẫu dương tính</em></p>
+        </div>
+    </div>
+    {% if saved%}
+    <script>
+        window.alert('Đã cập nhật')
+        window.location = window.location.pathname
+    </script>
+    {% endif %}
+</div>
+
+{% endblock%}
