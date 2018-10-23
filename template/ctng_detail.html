@@ -18,13 +18,13 @@
                 {% endfor %}
                 {% csrf_token %}
                 <input type="submit" value="Cập nhật" class="btn btn-primary">
-                <a href="{% url 'c_sample_list'%}" class="btn btn-default">Quay về danh sách</a>
+                <a href="{% url 'ctng_sample_list'%}" class="btn btn-default">Quay về danh sách</a>
 
             </form>
         </div>
         <div class="col-sm-6">           
             <img src="{% static image_file %}" alt="CHƯA CÓ FILE HÌNH" width="600px">
-            <a href="{% url 'c_image' sample.pk %}" class="btn btn-primary">Reload hình</a>
+            <a href="{% url 'ctng_image' sample.pk %}" class="btn btn-primary">Reload hình</a>
             
         </div>
     </div>

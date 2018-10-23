@@ -12,7 +12,7 @@
     </div>
     
     {% endif %}
-    <div class="container">
+    <div>
         
     <form action="" method="post">
         {% csrf_token %}
@@ -27,9 +27,12 @@
                 <th scope="col"></th>
                 <th scope="col">Lab ID</th>
                 <th scope="col">Tên</th>
+                <th scope="col">Tuổi</th> 
+                <th scope="col">Loại mẫu</th> 
                 <th scope="col">Ngày nhận</th>                
-                <th scope="col">Đơn vị gửi</th>
+               
                 <th scope="col">Kết quả</th>
+                <th scope="col">Đơn vị gửi</th>
                 <th scope="col"></th>
             </tr>
         </thead>
@@ -40,6 +43,8 @@
                 <td><input type="checkbox" name = "chkbx" value="{{sample.pk}}"></td>
                 <td scope="row">{{sample.lab_id}}</td>
                 <td>{{sample.name}}</td>
+                <td>{{sample.age}}</td>
+                <td>{{sample.sample_type}}</td>
                 <td>{{sample.added}}</td>   
                 {% if sample.test_kit == "KT" %}
                 <td> 16: {{sample.result_16_kt}} 18: {{sample.result_18_kt}} HR: {{sample.result_hr_kt}}</td>
@@ -54,6 +59,8 @@
                 <td><input type="checkbox" name = "chkbx" value="{{sample.pk}}"></td>
                 <td scope="row">{{sample.lab_id}}</td>
                 <td>{{sample.name}}</td>
+                <td>{{sample.age}}</td>
+                <td>{{sample.sample_type}}</td>
                 <td>{{sample.added}}</td>
                 {% if sample.test_kit == "KT" %}
                 <td> 16: {{sample.result_16_kt}} 18: {{sample.result_18_kt}} HR: {{sample.result_hr_kt}}</td>

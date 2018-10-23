@@ -251,7 +251,7 @@ def ctng_sample_input(request):
 
     
 def ctng_sample_list(request):
-    samples = CTNGSample.objects.all()
+    samples = CTNGSample.objects.order_by("-lab_id")
     mess = ""
     if request.method == "POST":               
         if request.POST.get('actionbutton') == 'Xóa':        
@@ -286,7 +286,7 @@ def ctng_sample_list(request):
 def ctng_sample_detail(request, id_ = None):
     saved = False
     instance = get_object_or_404(CTNGSample, id = id_)
-    form = CTNGSampleForm(request.POST or None, instance= instance)
+    form = CTNGSampleForm(request.POST or None, instance= instance, initial= {'result_ct': 'ÂM TÍNH', 'result_ng':'ÂM TÍNH'})
     image_file = "/run_img/" + instance.lab_id + "-VA.png"
     
     if form.is_valid():
@@ -339,7 +339,7 @@ def hpv_sample_input(request):
 
     
 def hpv_sample_list(request):
-    samples = HPVSample.objects.all()
+    samples = HPVSample.objects.order_by("-lab_id")
     mess = ""
     if request.method == "POST":               
         if request.POST.get('actionbutton') == 'Xóa':        

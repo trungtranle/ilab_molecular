@@ -178,6 +178,11 @@ def create_HBV_report(pk = None):
             sid = ""
         else:
             sid = str(obj.sid)
+        
+        if obj.age != None:
+            age = str(obj.age)
+        else:
+            age = ""
         #start merging
         f_1 = MailMerge(settings.STATIC_DIR + '/word_template/HBV FORM.docx')
         f_1.merge(
@@ -186,7 +191,7 @@ def create_HBV_report(pk = None):
             sex = obj.sex, 
             doctor = obj.doctor, 
             addres = obj.address, 
-            age = str(obj.age), 
+            age = age, 
             name = obj.name, 
             date_receive = obj.added.strftime('%d/%m/%Y'), 
             date_finished = obj.modified.strftime('%d/%m/%Y-%H:%M'), 
@@ -365,6 +370,11 @@ def create_HCV_report(pk = None):
             sid = ""
         else:
             sid = str(obj.sid)
+        
+        if obj.age != None:
+            age = str(obj.age)
+        else:
+            age = ""
         #start merging
         f_1 = MailMerge(settings.STATIC_DIR + '/word_template/HCV FORM.docx')
         f_1.merge(
@@ -373,7 +383,7 @@ def create_HCV_report(pk = None):
             sex = obj.sex, 
             doctor = obj.doctor, 
             addres = obj.address, 
-            age = str(obj.age), 
+            age = age, 
             name = obj.name, 
             date_receive = obj.added.strftime('%d/%m/%Y'), 
             date_finished = obj.modified.strftime('%d/%m/%Y-%H:%M'), 
@@ -543,6 +553,11 @@ def create_CTNG_report(pk = None):
         sid = ""
     else:
         sid = str(obj.sid)
+    
+    if obj.age != None:
+        age = str(obj.age)
+    else:
+        age = ""
     result_ct_neg = ''
     result_ct_pos = ''
     result_ng_neg = ''
@@ -565,7 +580,7 @@ def create_CTNG_report(pk = None):
         sex = obj.sex, 
         doctor = obj.doctor, 
         addres = obj.address, 
-        age = str(obj.age), 
+        age = age, 
         name = obj.name, 
         date_receive = obj.added.strftime('%d/%m/%Y'), 
         date_finished = obj.modified.strftime('%d/%m/%Y-%H:%M'), 
@@ -770,7 +785,10 @@ def create_HPV_report(pk = None):
         sid = ""
     else:
         sid = str(obj.sid)
-    
+    if obj.age != None:
+        age = str(obj.age)
+    else:
+        age = ""
     if obj.test_kit == "KT":
         pic_file = "static/run_img/" + obj.lab_id + "-KT.png"
         result_16_neg = ""
@@ -807,7 +825,7 @@ def create_HPV_report(pk = None):
             sex = obj.sex,
             doctor =obj.doctor, 
             address = obj.address, 
-            age = str(obj.age), 
+            age = age, 
             name = obj.name, 
             date_receive = obj.added.strftime('%d/%m/%Y'), 
             date_finished = obj.modified.strftime('%d/%m/%Y-%H:%M'), 
@@ -855,7 +873,7 @@ def create_HPV_report(pk = None):
         sex = obj.sex, 
         doctor = obj.doctor, 
         address = obj.address, 
-        age = str(obj.age), 
+        age = age, 
         name = obj.name, 
         date_receive = obj.added.strftime('%d/%m/%Y'), 
         date_finished = obj.modified.strftime('%d/%m/%Y-%H:%M'), 

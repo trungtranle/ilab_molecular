@@ -119,9 +119,12 @@ class HPVInfoForm(forms.ModelForm):
         fields = ('sid', 'lab_id', 'name', 'age','address','sex','doctor','dx', 'added','clinic','test_kit')
         
 class HPVSampleForm(forms.ModelForm):
+    test_kit = forms.ChoiceField(choices = [('KT','KHOA THƯƠNG'),('VA', 'VIỆT Á')], label = 'Loại kit')
+    sex = forms.ChoiceField(choices=[('Nữ', 'Nữ'),('Nam','Nam'), ('Khác', 'Khác')], label = 'Giới tính')
     result_16_kt = forms.ChoiceField(choices=(("",""),('DƯƠNG TÍNH','DƯƠNG TÍNH'),('ÂM TÍNH', 'ÂM TÍNH')), label = 'HPV 16 KHOA THƯƠNG', required = False)
     result_18_kt = forms.ChoiceField(choices=(("",""),('DƯƠNG TÍNH','DƯƠNG TÍNH'),('ÂM TÍNH', 'ÂM TÍNH')), label = 'HPV 18 KHOA THƯƠNG', required = False)
     result_hr_kt = forms.ChoiceField(choices=(("",""),('DƯƠNG TÍNH','DƯƠNG TÍNH'),('ÂM TÍNH', 'ÂM TÍNH')), label = 'HPV HR KHOA THƯƠNG', required = False)
+    sample_type = forms.ChoiceField(choices = [('Phết cổ tử cung','Phết cổ tử cung' ), ('Phết vòm họng', 'Phết vòm họng'), ('Phết niệu đạo', 'Phết niệu đạo'), ('Phết âm đạo','Phết âm đạo'), ('Mẫu phết', 'Mẫu phết') , ('Khác', 'Khác')], label = 'Loại mẫu')
     result_qual_va = forms.ChoiceField(choices=(("",""),('DƯƠNG TÍNH','DƯƠNG TÍNH'),('ÂM TÍNH', 'ÂM TÍNH')), label = 'ĐỊNH TÍNH HPV VIỆT Á', required = False)
     result_type_va = forms.CharField(max_length = 100, label = 'ĐỊNH TYPE VIỆT Á', required = False)
    

@@ -12,7 +12,7 @@
     </div>
     
     {% endif %}
-    <div class="container">
+    <div>
         
     <form action="" method="post">
         {% csrf_token %}
@@ -27,6 +27,7 @@
                 <th scope="col"></th>
                 <th scope="col">Lab ID</th>
                 <th scope="col">Tên</th>
+                <th scope="col">Năm sinh</th>
                 <th scope="col">Ngày nhận</th>
                 <th scope="col">Kết quả</th>
                 <th scope="col">Ct</th>
@@ -42,10 +43,12 @@
                 <td><input type="checkbox" name = "chkbx" value="{{sample.pk}}"></td>
                 <td scope="row">{{sample.lab_id}}</td>
                 <td>{{sample.name}}</td>
+                <td>{{sample.age}}</td>
+                
                 <td>{{sample.added}}</td>
                 <td>{{sample.result}}</td>
                 <td>{{sample.ct}}</td>
-                <td>{{ sample.copies|mul:100|intcomma}}</td>
+                <td>{{ sample.copies|mul:sample.std_curve.factor|intcomma}}</td>
                 <td>{{sample.clinic}}</td>
                 <td><a href="{% url 'b_detail' sample.pk %}" class="btn btn-info">Cập nhật</a></td>
             </tr>
@@ -54,6 +57,7 @@
                 <td><input type="checkbox" name = "chkbx" value="{{sample.pk}}"></td>
                 <td scope="row">{{sample.lab_id}}</td>
                 <td>{{sample.name}}</td>
+                <td>{{sample.age}}</td>
                 <td>{{sample.added}}</td>
                 <td>{{sample.result}}</td>
                 <td>{{sample.ct}}</td>
