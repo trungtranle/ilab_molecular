@@ -163,7 +163,7 @@ def create_HBV_report(pk = None):
     incompleted = ""
     try:
         #desktop = os.path.join(os.environ['USERPROFILE'], 'Desktop')
-        today_folder =  "E:/Result/" + datetime.now().strftime("%m%d")
+        today_folder =  "D:/Result/" + datetime.now().strftime("%m%d")
         if not os.path.exists(today_folder):
             os.makedirs(today_folder, exist_ok = True)
         try:
@@ -355,7 +355,7 @@ def create_HCV_report(pk = None):
     incompleted = ""
     try:
         desktop = os.path.join(os.environ['USERPROFILE'], 'Desktop')
-        today_folder =  "E:/Result/" + datetime.now().strftime("%m%d")
+        today_folder =  "D:/Result/" + datetime.now().strftime("%m%d")
         if not os.path.exists(today_folder):
             os.makedirs(today_folder, exist_ok = True)
         try:
@@ -538,7 +538,7 @@ def create_CTNG_report(pk = None):
     incompleted = ""
     #try:
     desktop = os.path.join(os.environ['USERPROFILE'], 'Desktop')
-    today_folder =  "E:/Result/" + datetime.now().strftime("%m%d")
+    today_folder =  "D:/Result/" + datetime.now().strftime("%m%d")
     if not os.path.exists(today_folder):
         os.makedirs(today_folder, exist_ok = True)
     try:
@@ -770,7 +770,7 @@ def create_HPV_report(pk = None):
     incompleted = ""
     #try:
     desktop = os.path.join(os.environ['USERPROFILE'], 'Desktop')
-    today_folder =  "E:/Result/" + datetime.now().strftime("%m%d")
+    today_folder =  "D:/Result/" + datetime.now().strftime("%m%d")
     if not os.path.exists(today_folder):
         os.makedirs(today_folder, exist_ok = True)
     try:
