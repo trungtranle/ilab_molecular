@@ -27,7 +27,7 @@ SECRET_KEY = 'hcbe_0f#o)&w1dcfha#3cemi&=sp1*a2d4ix6@htup3x*da_)9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.7']
+ALLOWED_HOSTS = ['192.168.1.7', 'localhost', '127.0.0.1', '192.168.1.14']
 
 
 # Application definition
@@ -87,8 +87,8 @@ DATABASES = {
         'NAME': 'ilab_molecular',
         'PORT':5432,
         'HOST':"localhost",
-        'USER':'postgres',
-        'PASSWORD':"trung"
+        'USER':'ilab',
+        'PASSWORD':"shpt"
 
 
     }
