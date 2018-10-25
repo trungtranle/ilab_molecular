@@ -100,8 +100,8 @@ class CTNGSample(models.Model):
     clinic = models.CharField(max_length = 100, verbose_name = 'Đơn vị gửi mẫu', null = True, blank = True)
     dx = models.CharField(max_length = 400, blank = True)
     sample_type = models.CharField(max_length = 100, blank = True)
-    result_ct = models.CharField(max_length = 50, blank = True)
-    result_ng = models.CharField(max_length = 50, blank = True)
+    result_ct = models.CharField(max_length = 50, blank = True, default = "ÂM TÍNH")
+    result_ng = models.CharField(max_length = 50, blank = True, default = "ÂM TÍNH")
     finished = models.BooleanField(default= False)
     curves = fields.JSONField(blank = True, null = True)
     
