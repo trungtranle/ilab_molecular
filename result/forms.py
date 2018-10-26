@@ -84,9 +84,11 @@ class CTNGInfoForm(forms.ModelForm):
     added = forms.DateField(initial = timezone.now(), widget = forms.SelectDateWidget, label = 'Ngày gửi mẫu')
     class Meta:
         model = CTNGSample
-        fields = ('sid', 'lab_id', 'name', 'age','address','sex','doctor','dx', 'added','clinic')
+        fields = ('sid', 'lab_id', 'name', 'age','address','sex','doctor','dx', 'added','clinic', 'sample_type')
         
 class CTNGSampleForm(forms.ModelForm):
+    sample_type = forms.ChoiceField(choices = [('Phết cổ tử cung','Phết cổ tử cung' ), ('Nước tiểu','Nước tiểu'), ('Phết niệu đạo', 'Phết niệu đạo'), ('Phết âm đạo','Phết âm đạo'), ('Phết vòm họng', 'Phết vòm họng'), ('Khác', 'Khác')], label = 'Loại mẫu')
+    added = forms.DateField(initial = timezone.now(), widget = forms.SelectDateWidget, label = 'Ngày gửi mẫu')
     result_ct = forms.ChoiceField(choices=(("",""),('DƯƠNG TÍNH','DƯƠNG TÍNH'),('ÂM TÍNH', 'ÂM TÍNH')))
     result_ng = forms.ChoiceField(choices=(("",""),('DƯƠNG TÍNH','DƯƠNG TÍNH'),('ÂM TÍNH', 'ÂM TÍNH')))
     sex = forms.ChoiceField(choices=[('Nữ', 'Nữ'), ('Nam','Nam'), ('Khác', 'Khác')], label = 'Giới tính')
@@ -116,9 +118,10 @@ class HPVInfoForm(forms.ModelForm):
     added = forms.DateField(initial = timezone.now(), widget = forms.SelectDateWidget, label = 'Ngày gửi mẫu')
     class Meta:
         model = HPVSample
-        fields = ('sid', 'lab_id', 'name', 'age','address','sex','doctor','dx', 'added','clinic','test_kit')
+        fields = ('sid', 'lab_id', 'name', 'age','address','sex','doctor','dx', 'added','clinic','test_kit', 'sample_type')
         
 class HPVSampleForm(forms.ModelForm):
+    added = forms.DateField(initial = timezone.now(), widget = forms.SelectDateWidget, label = 'Ngày gửi mẫu')
     test_kit = forms.ChoiceField(choices = [('KT','KHOA THƯƠNG'),('VA', 'VIỆT Á')], label = 'Loại kit')
     sex = forms.ChoiceField(choices=[('Nữ', 'Nữ'),('Nam','Nam'), ('Khác', 'Khác')], label = 'Giới tính')
     result_16_kt = forms.ChoiceField(choices=(("",""),('DƯƠNG TÍNH','DƯƠNG TÍNH'),('ÂM TÍNH', 'ÂM TÍNH')), label = 'HPV 16 KHOA THƯƠNG', required = False)

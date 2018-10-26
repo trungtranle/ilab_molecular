@@ -245,7 +245,7 @@ def ctng_sample_input(request):
             saved = True
            
     else:
-        form = CTNGInfoForm()
+        form = CTNGInfoForm(initial= {'sample_type':'Phết cổ tử cung'})
     
     return render(request, 'ctng_sample_input.html', {'form':form, 'saved':saved})
 
@@ -333,7 +333,7 @@ def hpv_sample_input(request):
             saved = True
            
     else:
-        form = HPVInfoForm()
+        form = HPVInfoForm(initial= {'sample_type':'Phết cổ tử cung'})
     
     return render(request, 'hpv_sample_input.html', {'form':form, 'saved':saved})
 
@@ -396,7 +396,7 @@ def hpv_take_info_from_run(request):
             #completed, incompledted = ""
             try:
                 completed, incompleted = process_HPV_runfile(request.FILES['green_file'], request.FILES['yellow_file'], request.FILES['orange_file'], request.FILES['red_file'])
-            except MultiValueDictKeyError:
+            except (MultiValueDictKeyError , KeyError):
                 completed, incompleted = process_HPV_runfile(request.FILES['green_file'], request.FILES['yellow_file'],None, None)
             return render(request, 'processing_info.html', {'completed':completed, 'incompleted':incompleted})
     else:
