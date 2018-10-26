@@ -16,11 +16,18 @@
         
     <form action="" method="post">
         {% csrf_token %}
-        <div class="container p-3">
-        <input class = "btn btn-primary" type="submit" name = "actionbutton" value="Tạo kết quả">
-        <input class = "btn btn-danger" type="submit" name = "actionbutton" value="Xóa">
-        <input type="submit" class="btn btn-warning" name = "actionbutton" value = "Finish Toggle">
-        </div>
+        
+        <nav class="navbar sticky-top">
+        
+            <div class="container p-3">
+                <input class="btn btn-primary" type="submit" name="actionbutton" value="Tạo kết quả">
+                <input class="btn btn-danger" type="submit" name="actionbutton" value="Xóa">
+                <input type="submit" class="btn btn-warning" name="actionbutton" value="Finish Toggle">
+            </div>
+
+        </nav>
+        
+
     <table class="table">
         <thead>
             <tr>
