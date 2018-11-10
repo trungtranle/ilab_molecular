@@ -936,7 +936,7 @@ def create_HPV_report(pk = None):
             result_geno_neg = "ÂM TÍNH"
         f_1 = MailMerge('static/word_template/HPV FORM VA.docx')
         f_1.merge(
-        sid = " " + obj.sid,
+        sid = obj.sid,
         lab_id = " " + obj.lab_id, 
         result_hpv_neg = result_hpv_neg,
         result_hpv_pos = result_hpv_pos,
