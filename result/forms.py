@@ -145,4 +145,4 @@ class HPVFileUpload(forms.Form):
     orange_file = forms.FileField(label = 'File màu ROX (Orange)', required = False)
     red_file = forms.FileField(label = 'File màu Cy5 (Red)', required = False)
     green_file_6 = forms.FileField(label = 'File màu FAM (Green) của HPV 6', required = False)
-    yellow_file_11 = forms.FileField(label = 'File màu Cy5 (Red) của HPV 11', required = False)
+    yellow_file_11 = forms.FileField(label = 'File màu HEX (Yellow) của HPV 11', required = False)
