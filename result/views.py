@@ -379,6 +379,8 @@ def hpv_sample_detail(request, id_ = None):
         image_file = "/run_img/" + instance.lab_id + "-VA.png"
     elif instance.test_kit == "KT": 
         image_file = "/run_img/" + instance.lab_id + "-KT.png"
+    elif instance.test_kit == "KT_611": 
+        image_file = "/run_img/" + instance.lab_id + "-KTPLUS.png"
 
     if form.is_valid():
 
@@ -395,9 +397,12 @@ def hpv_take_info_from_run(request):
             
             #completed, incompledted = ""
             try:
-                completed, incompleted = process_HPV_runfile(request.FILES['green_file'], request.FILES['yellow_file'], request.FILES['orange_file'], request.FILES['red_file'])
+                completed, incompleted = process_HPV_runfile(request.FILES['green_file'], request.FILES['yellow_file'], request.FILES['orange_file'], request.FILES['red_file'], request.FILES['green_file_6'], request.FILES['yellow_file_11'])
             except (MultiValueDictKeyError , KeyError):
-                completed, incompleted = process_HPV_runfile(request.FILES['green_file'], request.FILES['yellow_file'],None, None)
+                try:
+                    completed, incompleted = process_HPV_runfile(request.FILES['green_file'], request.FILES['yellow_file'],request.FILES['orange_file'], request.FILES['red_file'], None, None)
+                except (MultiValueDictKeyError , KeyError):
+                    completed, incompleted = process_HPV_runfile(request.FILES['green_file'], request.FILES['yellow_file'],None, None)
             return render(request, 'processing_info.html', {'completed':completed, 'incompleted':incompleted})
     else:
         form = HPVFileUpload()

@@ -198,7 +198,7 @@ def create_HBV_report(pk = None):
             d= datetime.now().strftime("%d"), 
             m= datetime.now().strftime('%m'), 
             y= datetime.now().strftime('%Y'))      
-        if obj.result == "ÂM TÍNH":
+        if obj.result == "DƯỚI NGƯỠNG PHÁT HIỆN":
             f_1.merge(iu = "DƯỚI NGƯỠNG PHÁT HIỆN")
         elif obj.copies != None:        
             try:            
@@ -390,7 +390,7 @@ def create_HCV_report(pk = None):
             d= datetime.now().strftime("%d"), 
             m= datetime.now().strftime('%m'), 
             y= datetime.now().strftime('%Y'))      
-        if obj.result == "ÂM TÍNH":
+        if obj.result == "DƯỚI NGƯỠNG PHÁT HIỆN":
             f_1.merge(iu = "DƯỚI NGƯỠNG PHÁT HIỆN")
         elif obj.copies != None:        
             try:            
@@ -663,6 +663,7 @@ def create_HPV_image(pk = None):
         name = "static/run_img/" + obj.lab_id+ '-KT.png'
         fig.savefig(name, type = 'png', bbox_inches = 'tight', dpi= 100)
         completed += obj.lab_id
+        f.close()
 
     elif obj.test_kit == "VA":
         fig = plt.figure()    
@@ -680,9 +681,52 @@ def create_HPV_image(pk = None):
         name = "static/run_img/" + obj.lab_id + '-VA.png'
         fig.savefig(name, type = 'png', bbox_inches = 'tight', dpi= 100)
         completed += obj.lab_id
+    elif obj.test_kit == "KT_611":
+        f = open('result/hpv_neg_kt.json')
+        hpv_neg = json.load(f)
+        fig, (ax1,ax2) = plt.subplots(1,2)
+        fig.set_size_inches(10, 4)
+        
+        ax1.plot(cycles, pd.DataFrame(hpv_neg['green']),label = 'HPV-16', c = 'green', marker = "s", markersize = 3)
+        ax1.plot(cycles, pd.DataFrame(hpv_neg['yellow']),label = 'HPV-18', c = '#2142FF', marker = "o", markersize = 3)
+        ax1.plot(cycles, pd.DataFrame(hpv_neg['orange']),label = 'HPV High Risk', c = '#FF8600', marker = "<",  markersize = 3)
+        ax1.plot(cycles, pd.DataFrame(hpv_neg['red']),label = 'Chứng nội', c = '#E80D0C', marker = 'x', markersize = 3)
+        ax1.plot(cycles, pd.DataFrame(hpv_neg['green_2']),label = 'HPV-6', c = '#460656', marker = "4",  markersize = 3)
+        ax1.plot(cycles, pd.DataFrame(hpv_neg['yellow_2']),label = 'HPV-11', c = '#10073a', marker = "d",  markersize = 3)
+
+        ax1.legend()
+        ax1.set_xlabel('Cycles')
+        ax1.set_ylabel('Normalized Fluorescence')
+        ax1.set_ylim(ymax = 1.0)
+
+        ax1.set_title('Mẫu âm tính')
+        ax1.grid(linestyle = ':', alpha = 0.5)
+        
+        ax2.plot(cycles, pd.DataFrame(curves['green']),label = 'HPV-16', c = 'green', marker = "s", markersize = 3)
+        ax2.plot(cycles, pd.DataFrame(curves['yellow']),label = 'HPV-18', c = '#2142FF', marker = "o", markersize = 3)
+        ax2.plot(cycles, pd.DataFrame(curves['orange']),label = 'HPV High Risk', c = '#FF8600', marker = "<",  markersize = 3)
+        ax2.plot(cycles, pd.DataFrame(curves['red']),label = 'Chứng nội', c = '#E80D0C', marker = 'x', markersize = 3)
+        ax2.plot(cycles, pd.DataFrame(curves['green_2']),label = 'HPV-6', c = '#460656', marker = "4",  markersize = 3)
+        ax2.plot(cycles, pd.DataFrame(curves['yellow_2']),label = 'HPV-11', c = '#10073a', marker = "d",  markersize = 3)
+        ax2.legend()
+        ax2.set_title(r"Mẫu " + obj.lab_id)
+        ax2.set_xlabel('Cycles')
+        ax2.set_ylabel('Normalized Fluorescence')
+        ax2.grid(linestyle = ':', alpha = 0.5)
+        
+        if ax2.get_ylim()[1] < 0.5:
+            ax2.set_ylim(ymax = 0.5)
+        
+        fig.tight_layout(h_pad = 3)
+        props = dict(boxstyle='round', alpha=0)
+        name = "static/run_img/" + obj.lab_id+ '-KTPLUS.png'
+        fig.savefig(name, type = 'png', bbox_inches = 'tight', dpi= 100)
+        completed += obj.lab_id
+        f.close()
+
     return completed, incompleted
 
-def process_HPV_runfile(green_file, yellow_file, orange_file = None, red_file = None):
+def process_HPV_runfile(green_file, yellow_file, orange_file = None, red_file = None, green_file_2 = None, yellow_file_2 = None):
     completed = []
     not_complete = []    
     try:
@@ -733,6 +777,31 @@ def process_HPV_runfile(green_file, yellow_file, orange_file = None, red_file = 
                 for point in serie.getElementsByTagName('points')[0].getElementsByTagName('point'):
                     array.append(float(point.getAttribute('Y')))
                 data_4[name] = array
+        if green_file_2 != None:
+            file_5 = xml.dom.minidom.parse(green_file_2)
+            root_5 = file_5.documentElement
+            data_5 = {}
+            series = root_5.getElementsByTagName('series')
+            for serie in series:
+                name = re.search(r'([Hh][Pp][Vv]-\S*)',
+                                serie.getAttribute('title')).group(0)
+                array = []
+                for point in serie.getElementsByTagName('points')[0].getElementsByTagName('point'):
+                    array.append(float(point.getAttribute('Y')))
+                data_5[name] = array
+        
+        if yellow_file_2 != None:
+            file_6 = xml.dom.minidom.parse(yellow_file_2)
+            root_6 = file_6.documentElement
+            data_6 = {}
+            series = root_6.getElementsByTagName('series')
+            for serie in series:
+                name = re.search(r'([Hh][Pp][Vv]-\S*)',
+                                serie.getAttribute('title')).group(0)
+                array = []
+                for point in serie.getElementsByTagName('points')[0].getElementsByTagName('point'):
+                    array.append(float(point.getAttribute('Y')))
+                data_6[name] = array
     except AttributeError:
         not_complete.append('File chạy không chứa mẫu tên HPV')
 
@@ -745,6 +814,10 @@ def process_HPV_runfile(green_file, yellow_file, orange_file = None, red_file = 
                     js_data['orange'] = data_3[name]
                 if red_file != None:
                     js_data['red'] = data_4[name]
+                if green_file_2 != None:
+                    js_data['green_2'] = data_5[name]
+                if yellow_file_2 != None:
+                    js_data['yellow_2'] = data_6[name]
                 js = json.dumps(js_data)
 
                 pt.curves = js
@@ -893,6 +966,83 @@ def create_HPV_report(pk = None):
                     run.add_picture('static/run_img/hpv neg.jpg', width = Cm(3.8))
                 elif obj.result_qual_va == "DƯƠNG TÍNH":
                     run.add_picture(obj.img_va, width = Cm(3.8))
+                paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        doc.save(file_name)
+        completed = obj.lab_id + " vào " + today_folder
+
+    if obj.test_kit == "KT_611":
+        pic_file = "static/run_img/" + obj.lab_id + "-KTPLUS.png"
+        result_16_neg = ""
+        result_16_pos = ""
+        result_18_neg = ""
+        result_18_pos = ""
+        result_hr_neg = ""
+        result_hr_pos = ""
+        result_6_neg = ""
+        result_6_pos = ""
+        result_11_neg = ""
+        result_11_pos = ""
+
+        if obj.result_16_kt == "DƯƠNG TÍNH":
+            result_16_pos = "DƯƠNG TÍNH"
+        else: 
+            result_16_neg = "ÂM TÍNH"
+
+        if obj.result_18_kt == "DƯƠNG TÍNH":
+            result_18_pos = "DƯƠNG TÍNH"
+        else: 
+            result_18_neg = "ÂM TÍNH"
+
+        if obj.result_hr_kt == "DƯƠNG TÍNH":
+            result_hr_pos = "DƯƠNG TÍNH"
+        else: 
+            result_hr_neg = "ÂM TÍNH"
+
+        if obj.result_6_kt == "DƯƠNG TÍNH":
+            result_6_pos = "DƯƠNG TÍNH"
+        else: 
+            result_6_neg = "ÂM TÍNH"
+
+        if obj.result_11_kt == "DƯƠNG TÍNH":
+            result_11_pos = "DƯƠNG TÍNH"
+        else: 
+            result_11_neg = "ÂM TÍNH" 
+        f_1 = MailMerge('static/word_template/HPV611 FORM.docx')
+        f_1.merge(
+            sid = obj.sid,
+            lab_id = " " + obj.lab_id, 
+            result_18_neg = result_18_neg,
+            result_18_pos = result_18_pos,
+            result_16_pos = result_16_pos,
+            result_16_neg = result_16_neg,
+            result_hr_pos = result_hr_pos,
+            result_hr_neg = result_hr_neg,
+            result_6_pos = result_6_pos,
+            result_6_neg = result_6_neg,
+            result_11_pos = result_11_pos,
+            result_11_neg = result_11_neg,
+            sex = obj.sex,
+            doctor =obj.doctor, 
+            address = obj.address, 
+            age = age, 
+            name = obj.name, 
+            date_receive = obj.added.strftime('%d/%m/%Y'), 
+            date_finished = obj.modified.strftime('%d/%m/%Y-%H:%M'), 
+            d= datetime.now().strftime("%d"), 
+            m= datetime.now().strftime('%m'), 
+            y= datetime.now().strftime('%Y'))
+    
+        f_1.write(file_name)
+        
+        
+
+        doc = Document(file_name)
+        for paragraph in doc.paragraphs:
+            if "[image]" in paragraph.text:
+                paragraph.text = paragraph.text.strip().replace("[image]", "")
+
+                run = paragraph.add_run()
+                run.add_picture(pic_file, width=Cm(15))
                 paragraph.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         doc.save(file_name)
         completed = obj.lab_id + " vào " + today_folder

@@ -129,6 +129,8 @@ class HPVSample(models.Model):
     result_16_kt = models.CharField(max_length = 50, blank = True, null = True, default = 'ÂM TÍNH')
     result_18_kt = models.CharField(max_length = 50, blank = True, null = True, default = 'ÂM TÍNH')
     result_hr_kt = models.CharField(max_length = 50, blank = True, null = True, default = 'ÂM TÍNH')
+    result_6_kt = models.CharField(max_length = 50, blank = True, null = True, default = 'ÂM TÍNH')
+    result_11_kt = models.CharField(max_length = 50, blank = True, null = True, default = 'ÂM TÍNH')
     result_qual_va = models.CharField(max_length = 50, blank = True, null = True, default = 'ÂM TÍNH')
     result_type_va = models.CharField(max_length = 50, blank = True, null = True)
     img_va = models.ImageField(upload_to = "img")

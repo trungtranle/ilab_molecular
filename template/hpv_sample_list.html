@@ -16,7 +16,7 @@
         
     <form action="" method="post">
         {% csrf_token %}
-        <nav class="navbar sticky-top">
+        <nav class="navbar m-t-7">
         
                 <div class="container p-3">
                     <input class="btn btn-primary" type="submit" name="actionbutton" value="Tạo kết quả">
@@ -70,6 +70,8 @@
                 <td> 16: {{sample.result_16_kt}} 18: {{sample.result_18_kt}} HR: {{sample.result_hr_kt}}</td>
                 {% elif sample.test_kit == "VA" %}
                 <td> VA: {{sample.result_qual_va}} {{sample.result_type_va}}</td>
+                {% elif sample.test_kit == "KT_611" %}
+                <td> 16: {{sample.result_16_kt}} 18: {{sample.result_18_kt}} HR: {{sample.result_hr_kt}} 6: {{sample.result_6_kt}} 11: {{sample.result_11_kt}}</td>
                 {% endif %}
                 <td>{{sample.clinic}}</td>
                 <td><a href="{% url 'hpv_detail' sample.pk %}" class="btn btn-info">Cập nhật</a></td>
