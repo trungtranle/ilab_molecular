@@ -251,7 +251,7 @@ def ctng_sample_input(request):
 
     
 def ctng_sample_list(request):
-    samples = CTNGSample.objects.order_by("-lab_id")
+    samples = CTNGSample.objects.order_by("-added", "-lab_id")
     mess = ""
     if request.method == "POST":               
         if request.POST.get('actionbutton') == 'Xóa':        
@@ -339,7 +339,7 @@ def hpv_sample_input(request):
 
     
 def hpv_sample_list(request):
-    samples = HPVSample.objects.order_by("-lab_id")
+    samples = HPVSample.objects.order_by("-added", "-lab_id")
     mess = ""
     if request.method == "POST":               
         if request.POST.get('actionbutton') == 'Xóa':        
@@ -413,6 +413,15 @@ def hpv_create_img(request, pk = None):
     
     completed, incompleted = create_HPV_image(pk = pk)
     #return render(request, 'index')
+    return redirect(hpv_sample_detail, int(pk))
+
+
+def hpv_populate(request, pk = None):
+    sample = HPVSample.objects.get(pk = pk)
+    curves = populate_HPV_result()
+    sample.curves = curves
+    sample.save()
+    create_HPV_image(pk=pk)
     return redirect(hpv_sample_detail, int(pk))
 
 

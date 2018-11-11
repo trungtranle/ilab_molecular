@@ -48,6 +48,7 @@ urlpatterns = [
     re_path(r'^hpv_run_file', result.views.hpv_take_info_from_run, name = 'hpv_run_file'),    
     re_path(r'hpv_detail/(\d+)', result.views.hpv_sample_detail, name = 'hpv_detail'),
     re_path(r'hpv_image/(\d+)', result.views.hpv_create_img, name = 'hpv_image'),
+    re_path(r'hpv_populate/(\d+)', result.views.hpv_populate, name= 'hpv_populate')
 
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

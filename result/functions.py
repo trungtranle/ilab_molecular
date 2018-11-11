@@ -20,7 +20,7 @@ from datetime import datetime
 import math
 from decimal import Decimal
 from django.contrib import messages
-
+import random
 
 
 def no_accent_vietnamese(s):    
@@ -1054,3 +1054,19 @@ def create_HPV_report(pk = None):
         incompleted = obj.lab_id'''
     return completed, incompleted
 
+def create_red_run():
+	arr = [-0.0307022044209794, -0.0280913091964497, -0.0254804139719199, -0.0228695187473902, -0.0204225687144872, -0.0180861506800482, -0.0157451881149236, -0.0132951264573411, -0.010757233874206, -0.00831366353130584, -0.00600839059388634, -0.00393327891278045, -0.00194970935807219, 0.000107940355260816, 0.00241048122940581, 0.00488721428384435, 0.00740852208138584, 0.00981269750245809, 0.0119529693744361, 0.0138114563660028, 0.0155742208295958, 0.0177146635781359, 0.0208902330238241, 0.0262995110617809, 0.0359125335872005, 0.0530687239571791, 0.0822455264825406, 0.128130786654408, 0.193579836149974, 0.278116153074254, 0.376969566008115, 0.481960430558091, 0.583440025861203, 0.673036977339407, 0.745318703643666, 0.798278306493034, 0.835157142336628, 0.860241914617969, 0.885326686899309, 0.910411459180649]
+	arr_2 = [num + random.uniform(-0.005, 0.005) for num in arr]
+	return arr_2
+
+def populate_HPV_result():
+    data = {
+        'green': np.random.uniform(-0.005, 0.005, 40).tolist(),
+        'yellow': np.random.uniform(0.01, 0.015, 40).tolist(),
+        'orange': np.random.uniform(-0.005, 0.005, 40).tolist(),
+        'red': create_red_run(),
+        'green_2': np.random.uniform(0.005, 0.009, 40).tolist(),
+        'yellow_2': np.random.uniform(-0.005, 0.005, 40).tolist(),
+    }
+    data = json.dumps(data)
+    return data

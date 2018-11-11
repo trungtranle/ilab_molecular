@@ -25,6 +25,9 @@
         </div>
         <div class="col-sm-6">           
             <img src="{% static image_file %}" alt="CHƯA CÓ FILE HÌNH" width="600px">
+            {% if sample.test_kit == 'KT_611' %}
+                <a href="{% url 'hpv_populate' sample.pk %}" class="btn btn-primary">Populate curves</a>
+            {% endif %}
             <a href="{% url 'hpv_image' sample.pk %}" class="btn btn-primary">Reload hình</a>
             
         </div>
