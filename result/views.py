@@ -249,9 +249,7 @@ def hcvg_sample_input(request):
 def hcvg_sample_list(request):
     samples = HCVGenoSample.objects.all()
     mess = ""
-    print(samples)
-    print(vars(samples[0]))
-    print(samples[0].sample)
+   
     if request.method == "POST":               
         if request.POST.get('actionbutton') == 'Xóa':        
           #  if len(request.POST.getlist('chkbx')):
