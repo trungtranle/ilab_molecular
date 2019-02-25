@@ -84,7 +84,7 @@ class HCVSample(models.Model):
     class Meta:
         ordering = ('-added',)
     def __str__(self):
-        return self.lab_id + self.name
+        return self.lab_id + ' ' +self.name
 
 class CTNGSample(models.Model):
     added = models.DateField(default = timezone.now)
@@ -142,3 +142,9 @@ class HPVSample(models.Model):
         ordering = ('-added',)
     def __str__(self):
         return self.lab_id + self.name
+
+class HCVGenoSample(models.Model):
+    sample = models.OneToOneField(HCVSample, on_delete = models.CASCADE, primary_key = True)
+    genotype = models.CharField(max_length = 100, null = True, blank = True)
+    curves = fields.JSONField(null = True, blank = True)
+    finished = models.BooleanField(default= False)

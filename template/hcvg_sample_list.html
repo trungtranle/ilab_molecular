@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load humanize %}
+{% block body_block %}
+    {% if mess %}   
+    <div> 
+    <script>
+        var al = "{{mess}}";        
+        window.alert(al)
+        window.location.href = "{% url 'cg_sample_list' %}"
+    </script>
+    </div>
+    
+    {% endif %}
+    <div>
+        
+    <form action="" method="post">
+        {% csrf_token %}
+        <nav class="navbar">
+        
+                <div class="container p-3">
+                    <input class="btn btn-primary" type="submit" name="actionbutton" value="Tạo kết quả">
+                    <input class="btn btn-danger" type="submit" name="actionbutton" value="Xóa">
+                    <input type="submit" class="btn btn-warning" name="actionbutton" value="Finish Toggle">
+                </div>
+    
+            </nav>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Lab ID</th>
+                <th scope="col">Tên</th>
+                <th scope="col">Năm sinh</th>
+                <th scope="col">Ngày nhận</th>
+                <th scope="col">Kết quả</th>
+                <th scope="col">Ct</th>
+                
+                <th scope="col">Đơn vị gửi</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sample in samples %}
+            {% if sample.finished %}
+            <tr>
+                <td><input type="checkbox" name = "chkbx" value="{{sample.pk}}"></td>
+                <td scope="row">{{sample.sample.lab_id}}</td>
+                <td>{{sample.sample.name}}</td>
+                <td>{{sample.sample.age}}</td>
+                <td>{{sample.sample.added}}</td>
+                
+                <td>{{sample.genotype}}</td>
+                <td>{{sample.sample.ct}}</td>
+                
+                <td>{{sample.sample.clinic}}</td>
+                <td><a href="{% url 'cg_detail' sample.pk %}" class="btn btn-info">Cập nhật</a></td>
+            </tr>
+            {% else %}
+            <tr class = table-warning>
+                <td><input type="checkbox" name = "chkbx" value="{{sample.pk}}"></td>
+                <td scope="row">{{sample.sample.lab_id}}</td>
+                <td>{{sample.sample.name}}</td>
+                <td>{{sample.sample.age}}</td>
+                <td>{{sample.sample.added}}</td>
+                <td>{{sample.genotype}}</td>
+                <td>{{sample.sample.ct}}</td>
+                
+                <td>{{sample.sample.clinic}}</td>
+                <td><a href="{% url 'cg_detail' sample.pk %}" class="btn btn-info">Cập nhật</a></td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    </form>
+</div>
+
+{% endblock %}

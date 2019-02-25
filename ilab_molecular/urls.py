@@ -36,6 +36,13 @@ urlpatterns = [
     re_path(r'^c_run_file', result.views.hcv_take_info_from_run, name = 'c_run_file'),    
     re_path(r'c_detail/(\d+)', result.views.hcv_sample_detail, name = 'c_detail'),
     re_path(r'c_image/(\d+)', result.views.hcv_create_img, name = 'c_image'),
+    #Cgeno URL
+    re_path(r'^cg_new', result.views.hcvg_sample_input, name = 'cg_new'),
+    re_path(r'^cg_sample_list', result.views.hcvg_sample_list, name = 'cg_sample_list'),
+    re_path(r'^cg_run_file/(\d+)', result.views.hcvg_take_info_from_run, name = 'cg_run_file'),    
+    re_path(r'cg_detail/(\d+)', result.views.hcvg_sample_detail, name = 'cg_detail'),
+    re_path(r'cg_image/(\d+)', result.views.hcvg_create_img, name = 'cg_image'),
+    
     #CTNG_URL
     re_path(r'^ctng_new', result.views.ctng_sample_input, name = 'ctng_new'),
     re_path(r'^ctng_sample_list', result.views.ctng_sample_list, name = 'ctng_sample_list'),

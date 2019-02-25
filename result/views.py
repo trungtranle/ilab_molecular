@@ -227,6 +227,94 @@ def hcv_create_img(request, pk = None):
     #return render(request, 'index')
     return redirect(hcv_sample_detail, int(pk), )
 
+#HCVGENOTYPE VIEWS
+def hcvg_sample_input(request):
+    saved = False
+    if request.method == "POST":
+        form = HCVGInfoForm(data = request.POST)
+        
+              
+        if form.is_valid():
+            raw_dt = form.save(commit=False)  
+            
+            raw_dt.save()            
+            saved = True
+           
+    else:
+        form = HCVGInfoForm()
+    
+    return render(request, 'hcvg_sample_input.html', {'form':form, 'saved':saved})
+
+    
+def hcvg_sample_list(request):
+    samples = HCVGenoSample.objects.all()
+    mess = ""
+    print(samples)
+    print(vars(samples[0]))
+    print(samples[0].sample)
+    if request.method == "POST":               
+        if request.POST.get('actionbutton') == 'Xóa':        
+          #  if len(request.POST.getlist('chkbx')):
+            for item in request.POST.getlist('chkbx'):
+                a = HCVGenoSample.objects.get(pk = item).sample.lab_id
+                m = delete_record(HCVGenoSample, item)
+                mess += 'Đã xóa ' + a + r"\n"
+            
+
+        if request.POST.get('actionbutton') == "Finish Toggle":
+            for item in request.POST.getlist('chkbx'):
+                obj = HCVGenoSample.objects.get(pk = item)
+                state = obj.finished 
+                obj.finished = not state
+                obj.save()
+                #mess += 'Updated ' + obj.lab_id + r"\n"
+        
+        if request.POST.get('actionbutton') == "Tạo kết quả":
+            #mess = ""
+            for item in request.POST.getlist('chkbx'):
+                c, i = create_HCV_geno_report(pk = item)
+                if c != "": 
+                    mess +=  "Đã xuất: " +  c + r"\n"
+                if i != "":
+                    mess +=  "LỖI: " + i + r"\n"
+            
+            #return render(request, 'processing_info.html', {"completed": completed, "incompleted": incompleted})
+
+    return render(request, 'hcvg_sample_list.html', {'samples':samples, 'mess':mess})
+
+def hcvg_sample_detail(request, id_ = None):
+    saved = False
+    instance = get_object_or_404(HCVGenoSample, sample_id = id_)
+    form = HCVGSampleForm(request.POST or None, instance= instance)
+    image_file = "/run_img/" + instance.sample.lab_id + "_genotype.png"
+    
+    if form.is_valid():
+     
+        form.save()
+        saved = True
+    else:
+        print('invalid')
+        
+        
+    return render(request, 'hcvg_detail.html', {'form':form, 'saved':saved,'sample':instance, 'image_file':image_file})
+
+def hcvg_take_info_from_run(request, pk = None):
+    if request.method == "POST":
+        
+        form = HCVGFileUpload(request.POST, request.FILES)
+        if form.is_valid():
+            process_HCV_geno_runfile(request.FILES['green_file'], pk = pk)
+            return redirect(hcvg_sample_detail, int(pk), )
+    else:
+        form = HCVGFileUpload()
+        
+        return render(request, 'HCVG_file_processing.html', {'form':form})
+
+def hcvg_create_img(request, pk = None):
+    
+    create_HCV_geno_img(pk = pk)
+    #return render(request, 'index')
+    return redirect(hcvg_sample_detail, int(pk), )
 
 #CTNG
 def ctng_sample_input(request):

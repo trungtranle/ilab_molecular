@@ -68,6 +68,18 @@ class HCVFileUpload(forms.Form):
     green_file = forms.FileField(label = 'File màu FAM (Green)')
     yellow_file = forms.FileField(label = 'File màu HEX (Yellow)')
 
+class HCVGInfoForm(forms.ModelForm):
+    class Meta:
+        model = HCVGenoSample
+        fields = ('sample',)
+
+class HCVGSampleForm(forms.ModelForm):
+    class Meta:
+        model = HCVGenoSample
+        fields = "__all__"
+
+class HCVGFileUpload(forms.Form):
+    green_file = forms.FileField(label = 'File màu FAM (Green)')
 #CTNG FORMS
 class CTNGInfoForm(forms.ModelForm):
     ctng_id = 'CTNG-'+ current_month + '-'
