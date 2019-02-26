@@ -138,7 +138,7 @@ def process_HBV_runfile(green_file, yellow_file):
     else:
         for k, name in list(enumerate(data_1)):
             try:
-                pt = HBVSample.objects.get(lab_id=name).order_by('added').first()
+                pt = HBVSample.objects.filter(lab_id=name).order_by('added').first()
                 js_data = {"green": data_1[name], "yellow": data_2[name]}
                 js = json.dumps(js_data)
                 pt.curves = js
@@ -330,7 +330,7 @@ def process_HCV_runfile(green_file, yellow_file):
     else:
         for k, name in list(enumerate(data_1)):
             try:
-                pt = HCVSample.objects.get(lab_id=name).order_by('added').first()
+                pt = HCVSample.objects.filter(lab_id=name).order_by('added').first()
                 js_data = {"green": data_1[name], "yellow": data_2[name]}
                 js = json.dumps(js_data)
                 pt.curves = js
@@ -513,7 +513,7 @@ def process_CTNG_runfile(green_file, orange_file, yellow_file):
     else:
         for k, name in list(enumerate(data_1)):
             try:
-                pt = CTNGSample.objects.get(lab_id=name).order_by('added').first()
+                pt = CTNGSample.objects.filter(lab_id=name).order_by('added').first()
                 js_data = {"green": data_1[name], "yellow": data_2[name], "orange": data_3[name]}
                 js = json.dumps(js_data)
                 pt.curves = js
@@ -808,7 +808,7 @@ def process_HPV_runfile(green_file, yellow_file, orange_file = None, red_file = 
     else:
         for k, name in list(enumerate(data_1)):
             try:
-                pt = HPVSample.objects.get(lab_id=name).order_by('added').first()
+                pt = HPVSample.objects.filter(lab_id=name).order_by('added').first()
                 js_data = {"green": data_1[name], "yellow": data_2[name]}
                 if orange_file != None:
                     js_data['orange'] = data_3[name]
